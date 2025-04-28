@@ -1,0 +1,32 @@
+name: Python FastAPI App CI
+
+on:
+  push:
+    paths:
+      - 'tugas-fastapi-graphql/**'
+  pull_request:
+    paths:
+      - 'tugas-fastapi-graphql/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      working-directory: Python
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run Tests (optional)
+      working-directory: Python
+      run: pytest
